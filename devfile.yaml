@@ -12,9 +12,14 @@ projects:
     name: polling-app
 
 components:
-  - container:
+  - name: universal-developer-image
+    container:
       image: quay.io/devfile/universal-developer-image:ubi8-d071837
       sourceMapping: /projects
+      memoryRequest: 512Mi
+      memoryLimit: 2Gi
+      cpuRequest: 100m
+      cpuLimit: 1000m
       env:
         - name: GIT_AUTHOR_NAME
           value: "Luis Gonzalez"
@@ -24,7 +29,7 @@ components:
           value: "Luis Gonzalez"
         - name: GIT_COMMITTER_EMAIL
           value: "decaturdev@gmail.com"
-    name: universal-developer-image
+
   - name: prep-workspace
     container:
       args:
@@ -44,11 +49,28 @@ components:
         - name: HOME
           value: "/projects/home"
 
+  - name: vscode-openshift
+    plugin:
+      id: redhat/vscode-openshift-connector/latest
+      preferences:
+        "openshiftToolkit.showChannelOnStart": true
+        "openshiftToolkit.autocheck": true
+
 commands:
-  - apply:
+  - id: prep-workspace
+    apply:
       component: prep-workspace
       label: Copy OpenShift CLI
-    id: prep-workspace
+
+  - id: setup-extensions
+    exec:
+      component: universal-developer-image
+      commandLine: |
+        code --install-extension redhat.vscode-openshift-connector
+      workingDir: ${PROJECT_SOURCE}
+      group:
+        kind: build
+        isDefault: true
 
 events:
   preStart:
