@@ -8,7 +8,7 @@ attributes:
 projects:
   - git:
       remotes:
-        origin: git@github.com:SmallCloudCo/polling-app.git
+        origin: https://github.com/SmallCloudCo/polling-app.git
     name: polling-app
 components:
   - container:
