@@ -10,6 +10,7 @@ projects:
       remotes:
         origin: https://github.com/SmallCloudCo/polling-app.git
     name: polling-app
+
 components:
   - container:
       image: quay.io/devfile/universal-developer-image:ubi8-d071837
@@ -33,13 +34,28 @@ components:
       env:
         - name: HOME
           value: "/projects/home"
+  - name: git-config
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-d071837
+      sourceMapping: /projects
+      command: 
+        - /bin/bash
+      args:
+        - '-c'
+        - >-
+          git config --global user.email "me@gmail.com" && git config --global user.name "Luis G"
 
 commands:
   - apply:
       component: prep-workspace
       label: Copy OpenShift CLI
     id: prep-workspace
+  - apply:
+      component: git-config
+      label: Configure Git
+    id: git-config
 
 events:
   preStart:
     - prep-workspace
+    - git-config
