@@ -4,6 +4,12 @@ metadata:
 attributes:
   controller.devfile.io/bootstrap-devworkspace: true
   controller.devfile.io/storage-type: per-workspace
+  .vscode/extensions.json: |
+    {
+      "recommendations": [
+        "redhat.vscode-openshift-connector"
+      ]
+    }
 
 projects:
   - git:
@@ -49,15 +55,6 @@ commands:
       component: prep-workspace
       label: Copy OpenShift CLI
     id: prep-workspace
-  - id: setup-extensions
-    exec:
-      component: universal-developer-image
-      commandLine: |
-        code --install-extension redhat.vscode-openshift-connector
-      workingDir: ${PROJECT_SOURCE}
-      group:
-        kind: build
-        isDefault: true
 
 events:
   preStart:
