@@ -43,7 +43,7 @@ components:
       args:
         - '-c'
         - >-
-          git config --global user.email "me@gmail.com" && git config --global user.name "Luis G"
+          git config --global user.email "decaturdev@gmail.com" && git config --global user.name "Luis Gonzalez"
 
 commands:
   - apply:
