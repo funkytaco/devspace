@@ -10,7 +10,16 @@ attributes:
         "redhat.vscode-openshift-connector"
       ]
     }
-
+  .devcontainer.json: |
+    {
+      "customizations": {
+        "vscode": {
+          "extensions": [
+            "redhat.vscode-openshift-connector"
+          ]
+        }
+      }
+    }
 projects:
   - git:
       remotes:
