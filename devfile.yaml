@@ -15,6 +15,15 @@ components:
   - container:
       image: quay.io/devfile/universal-developer-image:ubi8-d071837
       sourceMapping: /projects
+      env:
+        - name: GIT_AUTHOR_NAME
+          value: "Luis Gonzalez"
+        - name: GIT_AUTHOR_EMAIL
+          value: "decaturdev@gmail.com"
+        - name: GIT_COMMITTER_NAME
+          value: "Luis Gonzalez"
+        - name: GIT_COMMITTER_EMAIL
+          value: "decaturdev@gmail.com"
     name: universal-developer-image
   - name: prep-workspace
     container:
@@ -34,28 +43,13 @@ components:
       env:
         - name: HOME
           value: "/projects/home"
-  - name: git-config
-    container:
-      image: quay.io/devfile/universal-developer-image:ubi8-d071837
-      sourceMapping: /projects
-      command: 
-        - /bin/bash
-      args:
-        - '-c'
-        - >-
-          git config --global user.email "decaturdev@gmail.com" && git config --global user.name "Luis Gonzalez"
 
 commands:
   - apply:
       component: prep-workspace
       label: Copy OpenShift CLI
     id: prep-workspace
-  - apply:
-      component: git-config
-      label: Configure Git
-    id: git-config
 
 events:
   preStart:
     - prep-workspace
-    - git-config
