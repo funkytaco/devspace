@@ -31,13 +31,15 @@ components:
       cpuRequest: 10m
       cpuLimit: 200m
       env:
-      - name: HOME
-        value: "/projects/home"
+        - name: HOME
+          value: "/projects/home"
+
 commands:
-- apply:
-    component: prep-workspace
-    label: Copy OpenShift CLI
-  id: prep-workspace
+  - apply:
+      component: prep-workspace
+      label: Copy OpenShift CLI
+    id: prep-workspace
+
 events:
   preStart:
     - prep-workspace
