@@ -48,7 +48,8 @@ components:
           mkdir -p /projects/bin && cp /usr/bin/oc /projects/bin/oc && cp /usr/bin/kubectl /projects/bin/kubectl && if [[ -f ${HOME}/.kube/config ]]; then rm ${HOME}/.kube/config; fi
       command:
         - /bin/bash
-      image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+      # Using the CLI image that matches RHEL 8
+      image: registry.redhat.io/openshift4/ose-cli:v4.8
       mountSources: true
       sourceMapping: /projects
       memoryRequest: 128Mi
